@@ -5,6 +5,7 @@ import torch.nn as nn
 from torchvision import models, transforms
 from PIL import Image
 import io
+import os
 
 app = Flask(__name__, template_folder='templates')
 CORS(app)
@@ -70,6 +71,6 @@ def predict():
     
     except Exception as e:
         return jsonify({'error': str(e)})
-
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))  # Railway varsayılan olarak PORT değişkeni sağlar
+    app.run(host='0.0.0.0', port=port)
